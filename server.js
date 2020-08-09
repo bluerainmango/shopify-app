@@ -45,7 +45,7 @@ app.prepare().then(() => {
   //! ctx : context. 앞으로 호출할 모든 메소드, 속성을 가진 obj.
   // server.use(async (ctx) => (ctx.body = "Hello Koa App"));
 
-  server.listen(3000, () =>
+  server.listen(port, () =>
     console.log("😍 Ready on http://localhost:${port}")
   );
 });

@@ -5,15 +5,15 @@ function Index() {
     <Page>
       <Layout>
         <EmptyState
-          heading="Manage your inventory transfers"
-          action={{ content: "Add transfer" }}
+          heading="Headline"
+          action={{ content: "Call to action" }}
           secondaryAction={{
             content: "Learn more",
             url: "https://help.shopify.com",
           }}
           image="https://cdn.shopify.com/s/files/1/0757/9955/files/empty-state.svg"
         >
-          <p>Emily's first page</p>
+          <p>Emily's app index page</p>
         </EmptyState>
       </Layout>
     </Page>
