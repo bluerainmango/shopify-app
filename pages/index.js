@@ -1,12 +1,25 @@
-import { EmptyState, Layout, Page } from "@shopify/polaris";
+import React, { useState } from "react";
+import { EmptyState, Layout, Page, Modal } from "@shopify/polaris";
+import { ResourcePicker } from "@shopify/app-bridge-react";
 
 function Index() {
+  const [modal, setModal] = useState({ open: false });
+
   return (
     <Page>
+      <ResourcePicker
+        resourceType="Product"
+        showVariants={false}
+        open={modal.open}
+        onCancel={() => setModal({ open: false })}
+      />
       <Layout>
         <EmptyState
           heading="Headline"
-          action={{ content: "Call to action" }}
+          action={{
+            content: "Call to action",
+            onAction: () => setModal({ open: true }),
+          }}
           secondaryAction={{
             content: "Learn more",
             url: "https://help.shopify.com",

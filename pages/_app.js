@@ -6,10 +6,19 @@ import { AppProvider } from "@shopify/polaris";
 import "@shopify/polaris/dist/styles.css";
 // translations: 언어 지원
 import translations from "@shopify/polaris/locales/en.json";
+// product 등 admin 아이템의 정보를 가져오려면 아래 app-bridge가 필요
+import { Provider } from "@shopify/app-bridge-react";
+import Cookies from "js-cookie";
 
 class MyApp extends App {
   render() {
     const { Component, pageProps } = this.props;
+    //! server에서 쿠키를 사용해줬기 때문에 아래에서도 쿠키 사용??
+    const config = {
+      apiKey: API_KEY,
+      shopOrigin: Cookies.get("shopOrigin"),
+      forceRedirect: true,
+    };
 
     return (
       <React.Fragment>
@@ -17,9 +26,11 @@ class MyApp extends App {
           <title>Emily's app</title>
           <meta charSet="utf-8" />
         </Head>
-        <AppProvider i18n={translations}>
-          <Component {...pageProps} />
-        </AppProvider>
+        <Provider config={config}>
+          <AppProvider i18n={translations}>
+            <Component {...pageProps} />
+          </AppProvider>
+        </Provider>
       </React.Fragment>
     );
   }

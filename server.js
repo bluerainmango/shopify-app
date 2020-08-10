@@ -28,7 +28,13 @@ app.prepare().then(() => {
       scopes: ["read_products", "read_script_tags", "write_script_tags"],
       afterAuth(ctx) {
         const { shop, accessToken } = ctx.session;
-
+        //! shop: shop URL
+        //! 아래 세번째 옵션 설정 이유: app은 shopify site admin iframe안에서 구동되기에 크롬의 경우 http, samesite 등이 아닐 시 에러 메시지를 console.log에 출력한다. 이를 방지하기 위해 설정해주는 것.
+        ctx.cookies.set("shopOrigin", shop, {
+          httpOnly: false,
+          secure: true,
+          sameSite: "none",
+        });
         ctx.redirect("/");
       },
     })
