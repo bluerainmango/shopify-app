@@ -7,7 +7,7 @@ const { verifyRequest } = require("@shopify/koa-shopify-auth");
 const session = require("koa-session");
 
 dotenv.config();
-
+//! GraphiQL 사용하기 위한 추가
 const { default: graphQLProxy } = require("@shopify/koa-shopify-graphql-proxy");
 const { ApiVersion } = require("@shopify/koa-shopify-graphql-proxy");
 
@@ -44,6 +44,8 @@ app.prepare().then(() => {
     })
   );
 
+  //! GraphiQL 사용하기 위한 추가
+  //ApiVersion은 6개월에 한번씩 업데이트되고, 1년만 유효하기에 수시로 업데이트해줘야 함.
   server.use(graphQLProxy({ version: ApiVersion.October19 }));
 
   server.use(verifyRequest());
