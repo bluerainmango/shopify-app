@@ -9,6 +9,15 @@ import translations from "@shopify/polaris/locales/en.json";
 // product 등 admin 아이템의 정보를 가져오려면 아래 app-bridge가 필요
 import { Provider } from "@shopify/app-bridge-react";
 import Cookies from "js-cookie";
+//! apollo
+import ApolloClient from "apollo-boost";
+import { ApolloProvider } from "react-apollo";
+
+const client = new ApolloClient({
+  fetchOptions: {
+    credentials: "include",
+  },
+});
 
 class MyApp extends App {
   render() {
@@ -28,7 +37,9 @@ class MyApp extends App {
         </Head>
         <Provider config={config}>
           <AppProvider i18n={translations}>
-            <Component {...pageProps} />
+            <ApolloProvider client={client}>
+              <Component {...pageProps} />
+            </ApolloProvider>
           </AppProvider>
         </Provider>
       </React.Fragment>

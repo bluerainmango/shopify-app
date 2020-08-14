@@ -36,3 +36,13 @@ const GET_PRODUCTS_BY_ID = gql`
     }
   }
 `;
+
+function ProductList() {
+  return (
+    <div>
+      <h1>Hello from productlist</h1>
+    </div>
+  );
+}
+
+export default ProductList;
