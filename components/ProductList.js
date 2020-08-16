@@ -92,12 +92,3 @@ function ProductList() {
 }
 
 export default ProductList;
-{
-  /* <div>
-  <h1>Hello from productlist</h1>
-
-  {data.nodes.map((item) => {
-    return <p key={item.id}> {item.title}</p>;
-  })}
-</div> */
-}

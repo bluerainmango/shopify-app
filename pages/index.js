@@ -30,10 +30,11 @@ function Index() {
       {/* emptyState가 비었을 시 <EmptyState>출력. 아니면 <ProductList> 출력 */}
       {emptyState ? (
         <Layout>
+          {console.log("😊emptyState is true")}
           <EmptyState
             heading="Headline"
             action={{
-              content: "Call to action",
+              content: "Select Products",
               onAction: () => setModal({ open: true }),
             }}
             secondaryAction={{
