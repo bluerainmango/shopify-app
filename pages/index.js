@@ -26,9 +26,10 @@ function Index() {
         onCancel={() => setModal({ open: false })}
         onSelection={(resources) => handleSection(resources)}
       />
-      <Layout>
-        {/* emptyState가 비었을 시 <EmptyState>출력. 아니면 <ProductList> 출력 */}
-        {emptyState ? (
+
+      {/* emptyState가 비었을 시 <EmptyState>출력. 아니면 <ProductList> 출력 */}
+      {emptyState ? (
+        <Layout>
           <EmptyState
             heading="Headline"
             action={{
@@ -43,10 +44,10 @@ function Index() {
           >
             <p>Emily's app index page</p>
           </EmptyState>
-        ) : (
-          <ProductList />
-        )}
-      </Layout>
+        </Layout>
+      ) : (
+        <ProductList />
+      )}
     </Page>
   );
 }

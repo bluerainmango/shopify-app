@@ -49,14 +49,55 @@ function ProductList() {
   console.log("this is data", data);
 
   return (
-    <div>
-      <h1>Hello from productlist</h1>
-
-      {data.nodes.map((item) => {
-        return <p key={item.id}> {item.title}</p>;
-      })}
-    </div>
+    <Card>
+      <ResourceList
+        showHeader
+        resourceName={{ singular: "Product", plural: "Products" }}
+        items={data.nodes}
+        renderItem={(item) => {
+          const media = (
+            <Thumbnail
+              source={
+                item.images.edges[0]
+                  ? item.images.edges[0].node.originalSrc
+                  : ""
+              }
+              alt={item.images.edges[0] ? item.images.edges[0].altText : ""}
+            />
+          );
+          const price = item.variants.edges[0].node.price;
+          return (
+            <ResourceList.Item
+              id={item.id}
+              media={media}
+              accessibilityLabel={`View details for ${item.title}`}
+            >
+              //! Stack: horozontally place items
+              <Stack>
+                <Stack.Item fill>
+                  <h3>
+                    <TextStyle variation="strong">{item.title}</TextStyle>
+                  </h3>
+                </Stack.Item>
+                <Stack.Item>
+                  <p>${price}</p>
+                </Stack.Item>
+              </Stack>
+            </ResourceList.Item>
+          );
+        }}
+      />
+    </Card>
   );
 }
 
 export default ProductList;
+{
+  /* <div>
+  <h1>Hello from productlist</h1>
+
+  {data.nodes.map((item) => {
+    return <p key={item.id}> {item.title}</p>;
+  })}
+</div> */
+}
