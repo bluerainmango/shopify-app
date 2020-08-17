@@ -27,19 +27,16 @@ function Index() {
         onSelection={(resources) => handleSection(resources)}
       />
 
+      {console.log("🐷emptyState & modal: ", emptyState, "modal:", modal)}
+
       {/* emptyState가 비었을 시 <EmptyState>출력. 아니면 <ProductList> 출력 */}
       {emptyState ? (
         <Layout>
-          {console.log("😊emptyState is true")}
           <EmptyState
             heading="Headline"
             action={{
               content: "Select Products",
               onAction: () => setModal({ open: true }),
-            }}
-            secondaryAction={{
-              content: "Learn more",
-              url: "https://help.shopify.com",
             }}
             image="https://cdn.shopify.com/s/files/1/0757/9955/files/empty-state.svg"
           >
@@ -47,7 +44,10 @@ function Index() {
           </EmptyState>
         </Layout>
       ) : (
-        <ProductList />
+        <div>
+          {/* {console.log("🐻items added!", store.get("ids"))} */}
+          <ProductList />
+        </div>
       )}
     </Page>
   );

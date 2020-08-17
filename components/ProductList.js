@@ -1,5 +1,6 @@
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
+//! Stack: horozontally place items
 import {
   Card,
   ResourceList,
@@ -39,7 +40,7 @@ const GET_PRODUCTS_BY_ID = gql`
 `;
 
 function ProductList() {
-  const { loading, error, data } = useQeury(GET_PRODUCTS_BY_ID, {
+  const { loading, error, data } = useQuery(GET_PRODUCTS_BY_ID, {
     variables: { ids: store.get("ids") },
   });
 
@@ -48,7 +49,14 @@ function ProductList() {
 
   console.log("this is data", data);
 
+  // return (
+  //   <div>
+  //     <h1>Hello from productlist</h1>
+  //   </div>
+  // );
+
   return (
+    // <>
     <Card>
       <ResourceList
         showHeader
@@ -65,14 +73,15 @@ function ProductList() {
               alt={item.images.edges[0] ? item.images.edges[0].altText : ""}
             />
           );
+
           const price = item.variants.edges[0].node.price;
+
           return (
             <ResourceList.Item
               id={item.id}
               media={media}
               accessibilityLabel={`View details for ${item.title}`}
             >
-              //! Stack: horozontally place items
               <Stack>
                 <Stack.Item fill>
                   <h3>
@@ -88,6 +97,7 @@ function ProductList() {
         }}
       />
     </Card>
+    // </>
   );
 }
 
