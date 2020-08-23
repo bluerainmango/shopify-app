@@ -49,6 +49,7 @@ const DELETE_SCRIPTTAG = gql`
   }
 `;
 
+//! 아래는 btn을 통해 script tag create을 해주면 frontpage에 public > test-script.js에 코딩한 것대로 header바가 추가/삭제 되는 기능.
 function ScriptPage() {
   const [createScripts] = useMutation(CREATE_SCRIPT_TAG);
   const [deleteScripts] = useMutation(DELETE_SCRIPTTAG);
@@ -76,7 +77,7 @@ function ScriptPage() {
                 createScripts({
                   variables: {
                     input: {
-                      src: "https://68104d810034.ngrok.io/test-script.js",
+                      src: "https://a3ffbbc090d4.ngrok.io/test-script.js",
                       displayScope: "ALL",
                     },
                   },
