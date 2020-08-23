@@ -6,6 +6,8 @@ const { default: createShopifyAuth } = require("@shopify/koa-shopify-auth");
 const dotenv = require("dotenv");
 const { verifyRequest } = require("@shopify/koa-shopify-auth");
 const session = require("koa-session");
+// koa 전용 body parser(req로부터 json 등 접근/추출 가능)
+const koaBody = require("koa-body");
 
 dotenv.config();
 //! GraphiQL 사용하기 위한 추가
@@ -25,13 +27,25 @@ const { SHOPIFY_API_SECRET_KEY, SHOPIFY_API_KEY } = process.env;
 const server = new Koa();
 const router = new KoaRouter();
 
+const products = [{ image1: "test" }];
+
 //! Koa-router로 api endpoint 생성. ctx: context object. Koa에서 사용하는 obj
 router.get("/api/products", async (ctx) => {
   try {
     ctx.body = {
       status: "success",
-      data: "Hello this is from the Public API",
+      data: products,
     };
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+router.post("/api/products", koaBody(), async (ctx) => {
+  try {
+    const body = ctx.request.body;
+    products.push(body);
+    ctx.body = "Item Added";
   } catch (error) {
     console.log(error);
   }
