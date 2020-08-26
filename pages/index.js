@@ -1,30 +1,50 @@
 import React, { useState } from "react";
 import { EmptyState, Layout, Page, Modal } from "@shopify/polaris";
-import { ResourcePicker } from "@shopify/app-bridge-react";
+import { ResourcePicker, TitleBar } from "@shopify/app-bridge-react";
 //! ResourcePicker를 통해 선택한 제품을 local storage에 저장하기 위해 설치
 import store from "store-js";
 import ProductList from "../components/ProductList";
+import axios from "axios";
 
 function Index() {
   const [modal, setModal] = useState({ open: false });
   const emptyState = !store.get("ids");
 
-  function handleSection(resources) {
+  function handleSelection(resources) {
     const idsFromResources = resources.selection.map((product) => product.id);
     setModal({ open: false });
     store.set("ids", idsFromResources);
 
     console.log(`😉 This is product ids:`, store.get("ids"));
+
+    const selectedProducts = resources.selection;
+    selectedProducts.map((product) => makeApiCall(product));
+  }
+
+  //! 선택한 items 을 api call post를 통해 저장(물론 여기서는 server 설치안함)
+  async function makeApiCall(products) {
+    const url = "/api/products";
+
+    axios
+      .post(url, products)
+      .then((result) => console.log(result))
+      .catch((error) => console.log(error));
   }
 
   return (
     <Page>
+      <TitleBar
+        primaryAction={{
+          content: "Select New Products",
+          onAction: () => setModal({ open: true }),
+        }}
+      />
       <ResourcePicker
         resourceType="Product"
         showVariants={false}
         open={modal.open}
         onCancel={() => setModal({ open: false })}
-        onSelection={(resources) => handleSection(resources)}
+        onSelection={(resources) => handleSelection(resources)}
       />
 
       {console.log("🐷emptyState & modal: ", emptyState, "modal:", modal)}
