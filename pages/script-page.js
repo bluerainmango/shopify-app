@@ -68,7 +68,7 @@ function ScriptPage() {
           </Card>
         </Layout.Section>
         <Layout.Section secondary>
-          <Card title="Delete Tag" sectioned>
+          <Card title="Create Tag" sectioned>
             <Button
               primary
               size="slim"
@@ -77,7 +77,7 @@ function ScriptPage() {
                 createScripts({
                   variables: {
                     input: {
-                      src: "https://a3ffbbc090d4.ngrok.io/test-script.js",
+                      src: "https://e99fc94ec77e.ngrok.io/test-script.js",
                       displayScope: "ALL",
                     },
                   },

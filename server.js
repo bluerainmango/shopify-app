@@ -27,7 +27,7 @@ const { SHOPIFY_API_SECRET_KEY, SHOPIFY_API_KEY } = process.env;
 const server = new Koa();
 const router = new KoaRouter();
 
-const products = [{ image1: "test" }];
+let products = [];
 
 //! Koa-router로 api endpoint 생성. ctx: context object. Koa에서 사용하는 obj
 router.get("/api/products", async (ctx) => {
@@ -46,6 +46,15 @@ router.post("/api/products", koaBody(), async (ctx) => {
     const body = ctx.request.body;
     products.push(body);
     ctx.body = "Item Added";
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+router.delete("/api/products", koaBody(), async (ctx) => {
+  try {
+    products = [];
+    ctx.body = "All items deleted!";
   } catch (error) {
     console.log(error);
   }

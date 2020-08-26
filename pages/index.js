@@ -18,7 +18,14 @@ function Index() {
     console.log(`😉 This is product ids:`, store.get("ids"));
 
     const selectedProducts = resources.selection;
+    deleteApiData();
     selectedProducts.map((product) => makeApiCall(product));
+  }
+
+  function deleteApiData() {
+    const url = "/api/products";
+
+    axios.delete(url);
   }
 
   //! 선택한 items 을 api call post를 통해 저장(물론 여기서는 server 설치안함)
@@ -27,7 +34,7 @@ function Index() {
 
     axios
       .post(url, products)
-      .then((result) => console.log(result))
+      .then((result) => console.log("🐣 post result: ", result))
       .catch((error) => console.log(error));
   }
 
